@@ -1,33 +1,37 @@
-import { Entity } from 'melonjs/dist/melonjs.module.js';
+import * as me from 'melonjs/dist/melonjs.module.js';
 
-class PlayerEntity extends Entity {
+class PlayerEntity extends me.Sprite {
+  /**
+   * * constructor
+   */
+  constructor() {
+    let image = me.loader.getImage("player");
 
-    /**
-     * constructor
-     */
-    constructor(x, y, settings) {
-        // call the parent constructor
-        super(x, y , settings);
-    }
+    super(
+      me.game.viewport.width / 2 - image.width / 2,
+      me.game.viewport.height / 2 - image.height / 2,
+      { image: image, width: 32, height: 32 }
+    );
+  }
 
-    /**
-     * update the entity
-     */
-    update(dt) {
-        // change body force based on inputs
-        //....
-        // call the parent method
-        return super.update(dt);
-    }
+  /**
+   * update the sprite
+   */
+  update(dt) {
+    //change body force based on inputs
+    // .....
+    //call the parent method
+    return super.update(dt);
+  }
 
-   /**
-     * colision handler
-     * (called when colliding with other objects)
-     */
-    onCollision(response, other) {
-        // Make all other objects solid
-        return true;
-    }
-};
+  /**
+   * collision handler
+   * (called when colliding with other objects)
+   */
+  onCollision(response, other) {
+    // Make all other objects solid
+    return true;
+  }
+}
 
 export default PlayerEntity;
