@@ -1,34 +1,39 @@
-import * as me from 'melonjs/dist/melonjs.module.js';
-import 'index.css';
+import * as me from "melonjs/dist/melonjs.module.js";
+import "index.css";
 
-import PlayScreen from 'js/stage/play.js';
-import PlayerEntity from 'js/renderables/player.js';
+import PlayScreen from "js/stage/play.js";
+import PlayerEntity from "js/renderables/player.js";
 
-import DataManifest from 'manifest.js';
-
+import DataManifest from "manifest.js";
 
 me.device.onReady(() => {
-    // initialize the display canvas once the device/browser is ready
-    if (!me.video.init(1218, 562, {parent : "screen", scale : "auto", scaleMethod: "flex-width"})) {
-        alert("Your browser does not support HTML5 canvas.");
-        return;
-    }
+  // initialize the display canvas once the device/browser is ready
+  if (
+    !me.video.init(1218, 562, {
+      parent: "screen",
+      scale: "auto",
+      scaleMethod: "flex-width",
+    })
+  ) {
+    alert("Your browser does not support HTML5 canvas.");
+    return;
+  }
 
-    // Initialize the audio.
-    me.audio.init("mp3,ogg");
+  // Initialize the audio.
+  me.audio.init("mp3,ogg");
 
-    // allow cross-origin for image/texture loading
-    me.loader.crossOrigin = "anonymous";
+  // allow cross-origin for image/texture loading
+  me.loader.crossOrigin = "anonymous";
 
-    // set and load all resources.
-    me.loader.preload(DataManifest, function() {
-        // set the user defined game stages
-        me.state.set(me.state.PLAY, new PlayScreen());
+  // set and load all resources.
+  me.loader.preload(DataManifest, function () {
+    // set the user defined game stages
+    me.state.set(me.state.PLAY, new PlayScreen());
 
-        // add our player entity in the entity pool
-        me.pool.register("player", PlayerEntity);
+    // add our player entity in the entity pool
+    me.pool.register("player", PlayerEntity);
 
-        // Start the game.
-        me.state.change(me.state.PLAY);
-    });
+    // Start the game.
+    me.state.change(me.state.PLAY);
+  });
 });

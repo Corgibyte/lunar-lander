@@ -1,4 +1,4 @@
-import * as me from 'melonjs/dist/melonjs.module.js';
+import * as me from "melonjs/dist/melonjs.module.js";
 
 class PlayerEntity extends me.Sprite {
   /**
@@ -12,6 +12,10 @@ class PlayerEntity extends me.Sprite {
       me.game.viewport.height / 2 - image.height / 2,
       { image: image, width: 32, height: 32 }
     );
+
+    this.body = new me.Body(this);
+    this.body.addShape(new me.Rect(0, 0, this.width, this.height));
+    this.body.setMaxVelocity(3, 3);
   }
 
   /**
@@ -21,7 +25,12 @@ class PlayerEntity extends me.Sprite {
     //change body force based on inputs
     // .....
     //call the parent method
-    return super.update(dt);
+    if (me.input.isKeyPressed("up")) {
+      this.body.force.y = -this.body.maxVel.y;
+    } else {
+      this.body.force.y = 0;
+    }
+    return super.update(dt) || this.body.vel.y !== 0;
   }
 
   /**
